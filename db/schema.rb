@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151120043034) do
+ActiveRecord::Schema.define(version: 20151120070756) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,9 @@ ActiveRecord::Schema.define(version: 20151120043034) do
     t.string   "profile_link", null: false
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.string   "title"
+    t.string   "company"
+    t.string   "email"
   end
 
   add_index "contacts", ["linkedin_id"], name: "index_contacts_on_linkedin_id", unique: true, using: :btree
