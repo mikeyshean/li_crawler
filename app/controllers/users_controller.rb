@@ -11,7 +11,7 @@ class UsersController < ApplicationController
     end
 
     if user.generate_connections(params[:user][:password])
-      render :show
+      redirect_to user_url(user)
     else
       render json: "Fail"
       # render json: @user.errors.full_messages, status: 422
@@ -19,6 +19,10 @@ class UsersController < ApplicationController
   end
 
   def show
+    debugger
+    user = User.where(id: params[:id]).first
+    if user
+    @contacts = user.first_degree_contacts
     render json: "Success"
   end
 end

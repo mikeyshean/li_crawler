@@ -65,4 +65,11 @@ class User < ActiveRecord::Base
     true
   end
 
+  def first_degree_contacts
+    Contact.joins(connections: :user).where("users.id = #{self.id} AND connections.degree = 1")
+  end
+  def second_degree_contacts
+    Contact.joins(connections: :user).where("users.id = #{self.id} AND connections.degree = 2")
+  end
+
 end
