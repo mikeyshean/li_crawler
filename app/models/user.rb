@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
 
       browser.li(:class => "contact-item-view").when_present do
 
-# Infinite Scroll:  Loop scroll script until user list is fully loaded.
+# Infinite Scroll:  Loop scroll script until user list is fully loaded.  (Reduced to 50 for demo)
         list_count = 0
         while list_count < 50
           browser.execute_script("window.scrollTo(0,document.body.scrollHeight)")
@@ -86,7 +86,7 @@ class User < ActiveRecord::Base
 
     browser.div(:id => "identity").when_present do
 
-# Visit each first degree contact's profile
+# Visit each first degree contact's profile  (Reduced to 2 for demo)
       contacts = self.first_degree_contacts
       contacts.first(2).each do |contact|
         url = contact.profile_link
