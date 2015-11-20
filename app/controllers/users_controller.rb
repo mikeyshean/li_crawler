@@ -20,7 +20,7 @@ class UsersController < ApplicationController
   def show
     @user = User.where(id: params[:id]).first
     if @user
-      @contacts = @user.first_degree_contacts
+      @contacts = @user.second_degree_contacts
       render :show
     else
       render json: "Fail"

@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
 
 # Infinite Scroll:  Loop scroll script until user list is fully loaded.
         list_count = 0
-        while list_count < num_connections
+        while list_count < 50
           browser.execute_script("window.scrollTo(0,document.body.scrollHeight)")
           page = Nokogiri::HTML.parse(browser.html)
           list_count = page.search(".contact-item-view").size
@@ -88,7 +88,7 @@ class User < ActiveRecord::Base
 
 # Visit each first degree contact's profile
       contacts = self.first_degree_contacts
-      contacts.each do |contact|
+      contacts.first(2).each do |contact|
         url = contact.profile_link
         browser.goto(url)
 
@@ -150,11 +150,11 @@ class User < ActiveRecord::Base
   end
 
   def first_degree_contacts
-    Contact.joins(connections: :user).where("users.id = #{self.id} AND connections.degree = 1")
+    Contact.joins(connections: :user).where("users.id = #{self.id} AND connections.degree = 1").order("name ASC").limit(100)
   end
 
   def second_degree_contacts
-    Contact.joins(connections: :user).where("users.id = #{self.id} AND connections.degree = 2")
+    Contact.joins(connections: :user).where("users.id = #{self.id} AND connections.degree = 2").order("name ASC").limit(100)
   end
 
 end
