@@ -1,0 +1,13 @@
+<h2><%= @user.email %></h1>
+
+<h4>Second Degree Contacts</h4>
+<a href="<%= user_url(@user) %>">Back</a>
+<ul>
+  <% @contacts.each_with_index do |contact, idx| %>
+    <li>
+      Name: <a href='<%= "https://www.linkedin.com/profile/view?trk=contacts-contacts-list-contact_name-0&id=#{contact.linkedin_id}" %>'><%= contact.name %></a><br>
+      Title: <%= contact.title %><br>
+      Company: <%= contact.company %><br>
+    </li>
+  <% end %>
+</ul>
